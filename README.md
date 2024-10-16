@@ -21,6 +21,9 @@
 
 This is an example of a Javascript Edgee Component
 
+WARNING: A JavaScript WASM Component embed a full JS engine, resulting in longer startup time for edgee because of the
+pre-instantiating (which requires a lot of computing), which can be mitigated using a cache.
+
 ## Setup
 Requirements:
 - Node.js / npm
