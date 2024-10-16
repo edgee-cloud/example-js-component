@@ -1,0 +1,11 @@
+{
+  "name": "example-js-component",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "devDependencies": {
+    "@bytecodealliance/componentize-js": "^0.13.0",
+    "@bytecodealliance/jco": "^1.7.0"
+  }
+}

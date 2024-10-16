@@ -1,0 +1,9 @@
+# Node stuff
+/node_modules
+
+# Build artifacts
+*.wasm
+
+# Misc
+.*
+!.gitignore
