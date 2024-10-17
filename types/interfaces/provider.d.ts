@@ -1,7 +1,7 @@
 export namespace Provider {
-  export function page(p: Payload, cred: Dict): EdgeeRequest;
-  export function track(p: Payload, cred: Dict): EdgeeRequest;
-  export function identify(p: Payload, cred: Dict): EdgeeRequest;
+  export function page(e: Event, cred: Dict): EdgeeRequest;
+  export function track(e: Event, cred: Dict): EdgeeRequest;
+  export function user(e: Event, cred: Dict): EdgeeRequest;
 }
 export type Dict = Array<[string, string]>;
 /**
@@ -11,10 +11,10 @@ export type Dict = Array<[string, string]>;
  * 
  * ## `"track"`
  * 
- * ## `"identify"`
+ * ## `"user"`
  */
-export type EventType = 'page' | 'track' | 'identify';
-export interface PageEvent {
+export type EventType = 'page' | 'track' | 'user';
+export interface PageData {
   name: string,
   category: string,
   keywords: Array<string>,
@@ -25,15 +25,28 @@ export interface PageEvent {
   referrer: string,
   properties: Dict,
 }
-export interface IdentifyEvent {
+export interface UserData {
   userId: string,
   anonymousId: string,
   edgeeId: string,
   properties: Dict,
 }
-export interface TrackEvent {
+export interface TrackData {
   name: string,
   properties: Dict,
+}
+export type Data = DataPage | DataTrack | DataUser;
+export interface DataPage {
+  tag: 'page',
+  val: PageData,
+}
+export interface DataTrack {
+  tag: 'track',
+  val: TrackData,
+}
+export interface DataUser {
+  tag: 'user',
+  val: UserData,
 }
 export interface Client {
   ip: string,
@@ -73,18 +86,21 @@ export interface Session {
   firstSeen: bigint,
   lastSeen: bigint,
 }
-export interface Payload {
+export interface Context {
+  page: PageData,
+  user: UserData,
+  client: Client,
+  campaign: Campaign,
+  session: Session,
+}
+export interface Event {
   uuid: string,
   timestamp: bigint,
   timestampMillis: bigint,
   timestampMicros: bigint,
   eventType: EventType,
-  page: PageEvent,
-  identify: IdentifyEvent,
-  track: TrackEvent,
-  campaign: Campaign,
-  client: Client,
-  session: Session,
+  data: Data,
+  context: Context,
 }
 /**
  * # Variants

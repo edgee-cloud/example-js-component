@@ -1,5 +1,5 @@
 export const provider = {
-  page(payload, credentials) {
+  page(e, credentials) {
     return {
       method: 'GET',
       url: 'https://perdu.com',
@@ -8,11 +8,11 @@ export const provider = {
     };
   },
 
-  track(payload, credentials) {
+  track(e, credentials) {
     throw "Not implemented";
   },
 
-  identify(payload, credentials) {
+  user(e, credentials) {
     throw "Not implemented";
   },
 };
