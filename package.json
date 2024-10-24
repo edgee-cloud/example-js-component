@@ -1,6 +1,8 @@
 {
   "name": "example-js-component",
   "type": "module",
+  "main": "src/index.js",
+  "types": "./types/protocols.d.ts",
   "scripts": {
     "build": "node build.mjs"
   },

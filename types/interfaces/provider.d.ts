@@ -6,11 +6,11 @@ export namespace Provider {
 export type Dict = Array<[string, string]>;
 /**
  * # Variants
- * 
+ *
  * ## `"page"`
- * 
+ *
  * ## `"track"`
- * 
+ *
  * ## `"user"`
  */
 export type EventType = 'page' | 'track' | 'user';
@@ -104,13 +104,13 @@ export interface Event {
 }
 /**
  * # Variants
- * 
+ *
  * ## `"GET"`
- * 
+ *
  * ## `"PUT"`
- * 
+ *
  * ## `"POST"`
- * 
+ *
  * ## `"DELETE"`
  */
 export type HttpMethod = 'GET' | 'PUT' | 'POST' | 'DELETE';
