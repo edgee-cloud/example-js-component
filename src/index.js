@@ -5,6 +5,15 @@
  * @typedef {import("../types/interfaces/provider").Event} Event
  */
 
+/**
+ * Convert a {@link Dict} into a native JavaScript dictionary
+ *
+ * Needed since WASM Component doesn't have a native map type.
+ *
+ * @param {Dict} dict
+ *
+ * @returns {Map}
+ */
 export const convertDict = (dict) => {
   let data = {};
 
