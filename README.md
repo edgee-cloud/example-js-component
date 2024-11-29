@@ -34,6 +34,5 @@ $ npm install
 ## Building
 
 ```shell
-$ make install
 $ npm run build
 ```
