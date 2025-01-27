@@ -68,7 +68,7 @@ const buildEdgeeRequest = (endpoint, payload) => ({
 });
 
 /** @type {Provider} */
-export const provider = {
+export const dataCollection = {
   page(e, cred) {
     if (e.data.tag != 'page') {
       throw "Missing page data";

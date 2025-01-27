@@ -6,7 +6,7 @@ import { componentize } from '@bytecodealliance/componentize-js';
 const componentSource = await readFile('src/index.js', 'utf-8');
 
 const { component } = await componentize(componentSource, {
-  witPath: resolve('./wit/protocols.wit'),
+  witPath: resolve('./wit/'),
   worldName: 'data-collection',
   enableAot: process.env.ENABLE_AOT == '1',
   disableFeatures: [ 'http' ],
