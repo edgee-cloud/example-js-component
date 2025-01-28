@@ -3,12 +3,18 @@
  * @typedef {import("../types/interfaces/edgee-protocols-data-collection").EdgeeRequest} EdgeeRequest
  * @typedef {import("../types/interfaces/edgee-protocols-data-collection").Dict} Dict
  * @typedef {import("../types/interfaces/edgee-protocols-data-collection").Event} Event
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").PageData} PageData
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").TrackData} TrackData
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").UserData} UserData
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").Context} Context
  */
 
+const API_ENDPOINT = "https://your-endpoint.com/path";
+
 /**
- * Convert a {@link Dict} into a native JavaScript dictionary
+ * Convert a {@link Dict} into a native JavaScript object
  *
- * Needed since WASM Component doesn't have a native map type.
+ * Needed since Wasm Component doesn't have a native map type.
  *
  * @param {Dict} dict
  *
@@ -25,138 +31,128 @@ export const convertDict = (dict) => {
 };
 
 /**
- * @param {string} type
- * @param {Event} e
- * @param {number} sessionId
- */
-export const buildAmplitudeEvent = (type, e, sessionId) => {
-  let event = {
-    event_type: type,
-    library: 'Edgee',
-    platform: 'Web',
-
-    device_id: e.context.user.edgeeId,
-
-    user_agent: e.context.client.userAgent,
-    language: e.context.client.locale,
-    ip: e.context.client.ip,
-  };
-
-  if (sessionId != 0) {
-    event.session_id = sessionId;
-  }
-
-  if (e.context.user.userId != '') {
-    event.user_id = e.context.user.userId;
-  }
-
-  return event;
-};
-
-/**
  * @param {any} payload
+ * @param {string} payload
  *
  * @returns {EdgeeRequest}
  */
-const buildEdgeeRequest = (endpoint, payload) => ({
+const buildEdgeeRequest = (payload, apiKey) => ({
   method: 'POST',
-  url: `https://${endpoint}.amplitude.com/2/httpapi`,
+  url: API_ENDPOINT,
   headers: [
     ['Content-Type', 'application/json'],
+    ["Authorization", `Bearer ${apiKey}`],
   ],
   body: JSON.stringify(payload),
 });
 
+/**
+ * @param {PageData} data
+ * @param {Context} context
+ *
+ * @returns {any}
+ */
+const buildPagePayload = (data, context) => {
+  const sessionId = parseInt(context.session.sessionId);
+  const pageTitle = data.title;
+  // TODO extract data/context fields and build payload object
+  return {
+    sessionId,
+    pageTitle,
+  };
+};
+
+/**
+ * @param {TrackData} data
+ * @param {Context} context
+ *
+ * @returns {any}
+ */
+const buildTrackPayload = (data, context) => {
+  const sessionId = parseInt(context.session.sessionId);
+  const eventName = data.name;
+  const eventProperties = convertDict(data.properties);
+  // TODO extract data/context fields and build payload object
+  return {
+    sessionId,
+    eventName,
+    eventProperties,
+  };
+};
+
+/**
+ * @param {UserData} data
+ * @param {Context} context
+ *
+ * @returns {any}
+ */
+const buildUserPayload = (data, context) => {
+  const sessionId = parseInt(context.session.sessionId);
+  const userId = data.userId;
+  // TODO extract data/context fields and build payload object
+  return {
+    sessionId,
+    userId,
+  };
+};
+
 /** @type {EdgeeProtocolsDataCollection} */
 export const dataCollection = {
+
+  /**
+   * @param {Event} e
+   * @param {Dict} cred
+  */
   page(e, cred) {
     if (e.data.tag != 'page') {
-      throw "Missing page data";
+      throw new Error("Missing page data");
     }
 
-    let event, eventProps;
-
-    const sessionId = parseInt(e.context.session.sessionId);
-    const data = e.data.val;
+    // convert to native object
     cred = convertDict(cred);
 
-    let events = [];
+    // build payload
+    const payload = buildPagePayload(e.data.val, e.context);
 
-    event = buildAmplitudeEvent('[Amplitude] Page Viewed', e, sessionId);
-
-    eventProps = {
-      '[Amplitude] Page Location': `${data.url}${data.search}`,
-      '[Amplitude] Page Path': data.path,
-      '[Amplitude] Page Title': data.title,
-      '[Amplitude] Page URL': data.url,
-    };
-
-    let url = new URL(data.url);
-    eventProps['[Amplitude] Page Domain'] = url.hostname;
-
-    event.event_properties = eventProps;
-
-    events.push(event);
-
-    let payload = {
-      api_key: cred['amplitude_api_key'],
-      options: {
-        min_id_length: 1,
-      },
-      events,
-    };
-    return buildEdgeeRequest(cred['amplitude_endpoint'], payload);
+    // build and return EdgeeRequest
+    return buildEdgeeRequest(payload, cred['your_api_key']);
   },
 
+  /**
+   * @param {Event} e
+   * @param {Dict} cred
+  */
   track(e, cred) {
     if (e.data.tag != 'track') {
-      throw "Missing track data";
+      throw new Error("Missing track data");
     }
 
-    let event, eventProps;
-
-    const sessionId = parseInt(e.context.session.sessionId);
-    const data = e.data.val;
+    // convert to native object
     cred = convertDict(cred);
 
-    let events = [];
-
-    event = buildAmplitudeEvent(data.name, e, sessionId);
-    events.push(event);
-
-    let payload = {
-      api_key: cred['amplitude_api_key'],
-      options: {
-        min_id_length: 1,
-      },
-      events,
-    };
-    return buildEdgeeRequest(cred['amplitude_endpoint'], payload);
+    // build payload
+    const payload = buildTrackPayload(e.data.val, e.context);
+    
+    // build and return EdgeeRequest
+    return buildEdgeeRequest(payload, cred['your_api_key']);
   },
 
+  /**
+   * @param {Event} e
+   * @param {Dict} cred
+  */
   user(e, cred) {
     if (e.data.tag != 'user') {
-      throw "Missing user data";
+      throw new Error("Missing user data");
     }
 
-    let event, eventProps;
-
-    const sessionId = parseInt(e.context.session.sessionId);
-    const data = e.data.val;
+    // convert to native object
     cred = convertDict(cred);
 
-    let events = [];
+    // build payload
+    const payload = buildUserPayload(e.data.val, e.context);
 
-    event = buildAmplitudeEvent(data.name, e, sessionId);
-    events.push(event);
-
-    let payload = {
-      api_key: cred['amplitude_api_key'],
-      options: {
-        min_id_length: 1,
-      },
-      events,
-    };
-    return buildEdgeeRequest(cred['amplitude_endpoint'], payload);
+    // build and return EdgeeRequest
+    return buildEdgeeRequest(payload, cred['your_api_key']);
   },
 };
