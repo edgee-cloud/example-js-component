@@ -9,5 +9,11 @@ help:
 		| sed -e "s/^Makefile://" -e "s///" \
 		| awk 'BEGIN { FS = ":.*?## " }; { printf "\033[36m%-30s\033[0m %s\n", $$1, $$2 }'
 
+internal: # generate types
+	npm install
+	npx jco types wit/ -o types/
+
+setup: internal ## setup development environment
+
 build: ## Build the wasi component
 	npm run build
