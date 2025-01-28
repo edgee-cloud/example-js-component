@@ -1,8 +1,8 @@
 /**
- * @typedef {import("../types/interfaces/provider").Provider} Provider
- * @typedef {import("../types/interfaces/provider").EdgeeRequest} EdgeeRequest
- * @typedef {import("../types/interfaces/provider").Dict} Dict
- * @typedef {import("../types/interfaces/provider").Event} Event
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").EdgeeProtocolsDataCollection} EdgeeProtocolsDataCollection
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").EdgeeRequest} EdgeeRequest
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").Dict} Dict
+ * @typedef {import("../types/interfaces/edgee-protocols-data-collection").Event} Event
  */
 
 /**
@@ -67,7 +67,7 @@ const buildEdgeeRequest = (endpoint, payload) => ({
   body: JSON.stringify(payload),
 });
 
-/** @type {Provider} */
+/** @type {EdgeeProtocolsDataCollection} */
 export const dataCollection = {
   page(e, cred) {
     if (e.data.tag != 'page') {
