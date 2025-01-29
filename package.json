@@ -2,12 +2,16 @@
   "name": "example-js-component",
   "type": "module",
   "main": "src/index.js",
-  "types": "./types/protocols.d.ts",
+  "types": "./types/wit.d.ts",
   "scripts": {
-    "build": "node build.mjs"
+    "build": "node build.mjs",
+    "test": "mocha",
+    "coverage": "c8 --src js --all -r text -r text-summary npm test"
   },
   "devDependencies": {
-    "@bytecodealliance/componentize-js": "^0.13.0",
-    "@bytecodealliance/jco": "^1.7.0"
+    "@bytecodealliance/componentize-js": "^0.16.0",
+    "@bytecodealliance/jco": "^1.9.1",
+    "c8": "^10.1.3",
+    "mocha": "^11.1.0"
   }
 }

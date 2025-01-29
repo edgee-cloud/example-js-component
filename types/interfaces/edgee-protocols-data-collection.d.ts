@@ -1,4 +1,4 @@
-export namespace Provider {
+export namespace EdgeeProtocolsDataCollection {
   export function page(e: Event, cred: Dict): EdgeeRequest;
   export function track(e: Event, cred: Dict): EdgeeRequest;
   export function user(e: Event, cred: Dict): EdgeeRequest;
@@ -6,14 +6,24 @@ export namespace Provider {
 export type Dict = Array<[string, string]>;
 /**
  * # Variants
- *
+ * 
  * ## `"page"`
- *
+ * 
  * ## `"track"`
- *
+ * 
  * ## `"user"`
  */
 export type EventType = 'page' | 'track' | 'user';
+/**
+ * # Variants
+ * 
+ * ## `"pending"`
+ * 
+ * ## `"granted"`
+ * 
+ * ## `"denied"`
+ */
+export type Consent = 'pending' | 'granted' | 'denied';
 export interface PageData {
   name: string,
   category: string,
@@ -34,6 +44,7 @@ export interface UserData {
 export interface TrackData {
   name: string,
   properties: Dict,
+  products: Array<Dict>,
 }
 export type Data = DataPage | DataTrack | DataUser;
 export interface DataPage {
@@ -55,6 +66,7 @@ export interface Client {
   userAgent: string,
   userAgentArchitecture: string,
   userAgentBitness: string,
+  userAgentVersionList: string,
   userAgentFullVersionList: string,
   userAgentMobile: string,
   userAgentModel: string,
@@ -101,16 +113,17 @@ export interface Event {
   eventType: EventType,
   data: Data,
   context: Context,
+  consent?: Consent,
 }
 /**
  * # Variants
- *
+ * 
  * ## `"GET"`
- *
+ * 
  * ## `"PUT"`
- *
+ * 
  * ## `"POST"`
- *
+ * 
  * ## `"DELETE"`
  */
 export type HttpMethod = 'GET' | 'PUT' | 'POST' | 'DELETE';
