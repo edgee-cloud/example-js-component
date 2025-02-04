@@ -1,7 +1,7 @@
 export namespace EdgeeProtocolsDataCollection {
-  export function page(e: Event, cred: Dict): EdgeeRequest;
-  export function track(e: Event, cred: Dict): EdgeeRequest;
-  export function user(e: Event, cred: Dict): EdgeeRequest;
+  export function page(e: Event, settings: Dict): EdgeeRequest;
+  export function track(e: Event, settings: Dict): EdgeeRequest;
+  export function user(e: Event, settings: Dict): EdgeeRequest;
 }
 export type Dict = Array<[string, string]>;
 /**
@@ -131,5 +131,6 @@ export interface EdgeeRequest {
   method: HttpMethod,
   url: string,
   headers: Dict,
+  forwardClientHeaders: boolean,
   body: string,
 }
