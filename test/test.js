@@ -45,13 +45,13 @@ describe('data collection component', function () {
     consent: "granted",
   };
 
-  const sampleCreds = [
+  const sampleSettings = [
     ["your_api_key", "api_value"]
   ];
 
   describe('#page()', function () {
     it('should return an EdgeeRequest object', function () {
-      const req = dataCollection.page(samplePageEvent, sampleCreds);
+      const req = dataCollection.page(samplePageEvent, sampleSettings);
       assert.equal(req.method, "POST");
       assert.equal(req.url, "https://your-endpoint.com/path");
       assert.equal(req.headers.length, 2);

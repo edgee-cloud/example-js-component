@@ -110,7 +110,7 @@ export const dataCollection = {
     }
 
     // convert to native object
-    settings = convertDict(cred);
+    settings = convertDict(settings);
 
     // build payload
     const payload = buildPagePayload(e.data.val, e.context);
@@ -129,7 +129,7 @@ export const dataCollection = {
     }
 
     // convert to native object
-    settings = convertDict(cred);
+    settings = convertDict(settings);
 
     // build payload
     const payload = buildTrackPayload(e.data.val, e.context);
@@ -148,7 +148,7 @@ export const dataCollection = {
     }
 
     // convert to native object
-    settings = convertDict(cred);
+    settings = convertDict(settings);
 
     // build payload
     const payload = buildUserPayload(e.data.val, e.context);
