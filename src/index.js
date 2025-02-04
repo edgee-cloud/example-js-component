@@ -44,6 +44,7 @@ const buildEdgeeRequest = (payload, apiKey) => ({
     ["Authorization", `Bearer ${apiKey}`],
   ],
   body: JSON.stringify(payload),
+  forwardClientHeaders: true,
 });
 
 /**
@@ -101,58 +102,58 @@ export const dataCollection = {
 
   /**
    * @param {Event} e
-   * @param {Dict} cred
+   * @param {Dict} settings
   */
-  page(e, cred) {
+  page(e, settings) {
     if (e.data.tag != 'page') {
       throw new Error("Missing page data");
     }
 
     // convert to native object
-    cred = convertDict(cred);
+    settings = convertDict(cred);
 
     // build payload
     const payload = buildPagePayload(e.data.val, e.context);
 
     // build and return EdgeeRequest
-    return buildEdgeeRequest(payload, cred['your_api_key']);
+    return buildEdgeeRequest(payload, settings['your_api_key']);
   },
 
   /**
    * @param {Event} e
-   * @param {Dict} cred
+   * @param {Dict} settings
   */
-  track(e, cred) {
+  track(e, settings) {
     if (e.data.tag != 'track') {
       throw new Error("Missing track data");
     }
 
     // convert to native object
-    cred = convertDict(cred);
+    settings = convertDict(cred);
 
     // build payload
     const payload = buildTrackPayload(e.data.val, e.context);
-    
+
     // build and return EdgeeRequest
-    return buildEdgeeRequest(payload, cred['your_api_key']);
+    return buildEdgeeRequest(payload, settings['your_api_key']);
   },
 
   /**
    * @param {Event} e
-   * @param {Dict} cred
+   * @param {Dict} settings
   */
-  user(e, cred) {
+  user(e, settings) {
     if (e.data.tag != 'user') {
       throw new Error("Missing user data");
     }
 
     // convert to native object
-    cred = convertDict(cred);
+    settings = convertDict(cred);
 
     // build payload
     const payload = buildUserPayload(e.data.val, e.context);
 
     // build and return EdgeeRequest
-    return buildEdgeeRequest(payload, cred['your_api_key']);
+    return buildEdgeeRequest(payload, settings['your_api_key']);
   },
 };
