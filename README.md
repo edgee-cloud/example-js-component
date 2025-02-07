@@ -26,6 +26,7 @@ pre-instantiating (which requires a lot of computing), which can be mitigated us
 
 ## Setup
 Requirements:
+- [edgee-cli] (https://github.com/edgee-cloud/edgee)
 - Node.js / npm
 
 ```shell
@@ -34,5 +35,5 @@ $ npm install
 ## Building
 
 ```shell
-$ npm run build
+$ make build
 ```

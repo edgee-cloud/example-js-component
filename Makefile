@@ -16,4 +16,4 @@ internal: # generate types
 setup: internal ## setup development environment
 
 build: ## Build the wasi component
-	npm run build
+	edgee components build
