@@ -7,5 +7,5 @@ version = "1.0.0"
 wit-world-version = "0.4.0"
 
 [package.build]
-command = "npm install && npx jco types wit/ -o types/ && npm run build"
+command = "npm install && npx jco types wit/ -o types/ && npm run build && mv ./example-js-component.wasm ./dc-component.wasm"
 output_path = "./example-js-component.wasm"
