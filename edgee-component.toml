@@ -4,7 +4,7 @@ manifest_version = 1
 name = "example-js-component"
 version = "1.0.0"
 
-wit-world-version = "0.3.0"
+wit-world-version = "0.4.0"
 
 [package.build]
 command = "npm install && npx jco types wit/ -o types/ && npm run build"
