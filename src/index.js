@@ -20,7 +20,7 @@ const API_ENDPOINT = "https://your-endpoint.com/path";
  *
  * @returns {Map}
  */
-export const convertDict = (dict) => {
+const convertDict = (dict) => {
   let data = {};
 
   for (let [key, value] of dict) {

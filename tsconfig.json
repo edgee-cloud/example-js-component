@@ -1,0 +1,11 @@
+{
+  "files": [
+    "src/typescript/index.ts",
+  ],
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
