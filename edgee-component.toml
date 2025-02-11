@@ -11,5 +11,5 @@ repository = "https://github.com/edgee-cloud/example-js-component"
 wit-world-version = "0.4.0"
 
 [package.build]
-command = "npm install && npx jco types wit/ -o types/ && npm run build && mv ./example-js-component.wasm ./dc-component.wasm"
+command = "npm install && npm run generate && npm run build"
 output_path = "./example-js-component.wasm"

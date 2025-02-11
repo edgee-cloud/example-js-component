@@ -11,7 +11,7 @@ help:
 
 internal: # generate types
 	npm install
-	npx jco types wit/ -o types/
+	npm run generate
 
 setup: internal ## setup development environment
 
