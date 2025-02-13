@@ -1,6 +1,6 @@
 manifest_version = 1
 
-[package]
+[component]
 name = "example-js-component"
 version = "1.0.0"
 category = "data-collection"
@@ -10,6 +10,10 @@ documentation = "https://github.com/edgee-cloud/example-js-component"
 repository = "https://github.com/edgee-cloud/example-js-component"
 wit-world-version = "0.4.0"
 
-[package.build]
+[component.build]
 command = "npm install && npm run generate && npm run build"
 output_path = "./example-js-component.wasm"
+
+[component.settings.example]
+title = "Example Config Field"
+type = "string"

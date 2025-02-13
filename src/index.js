@@ -116,7 +116,7 @@ export const dataCollection = {
     const payload = buildPagePayload(e.data.val, e.context);
 
     // build and return EdgeeRequest
-    return buildEdgeeRequest(payload, settings['your_api_key']);
+    return buildEdgeeRequest(payload, settings['example']);
   },
 
   /**
@@ -135,7 +135,7 @@ export const dataCollection = {
     const payload = buildTrackPayload(e.data.val, e.context);
 
     // build and return EdgeeRequest
-    return buildEdgeeRequest(payload, settings['your_api_key']);
+    return buildEdgeeRequest(payload, settings['example']);
   },
 
   /**
@@ -154,6 +154,6 @@ export const dataCollection = {
     const payload = buildUserPayload(e.data.val, e.context);
 
     // build and return EdgeeRequest
-    return buildEdgeeRequest(payload, settings['your_api_key']);
+    return buildEdgeeRequest(payload, settings['example']);
   },
 };
