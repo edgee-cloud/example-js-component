@@ -30,10 +30,8 @@ jobs:
 
       - name: Verify .wasm file exists
         run: |
-          if [ -f "./example-js-component.wasm" ]; then
-            echo "✅ WASM file generated successfully!"
-          else
-            echo "❌ Error: example-js-component.wasm not found! There's an issue with your build" >&2
+          if [ ! -f "./example-js-component.wasm" ]; then
+            echo "❌ Error: example-js-component.wasm not found" >&2
             exit 1
           fi
 
