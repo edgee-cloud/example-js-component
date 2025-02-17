@@ -16,10 +16,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install edgee
+        uses: edgee-cloud/install-edgee-action@v0.1.0-beta
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -29,3 +32,6 @@ jobs:
 
       - name: Run tests
         run: npm test
+
+      - name: Edgee version
+        run: edgee --version
