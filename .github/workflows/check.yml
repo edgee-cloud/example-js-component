@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - "*"
   pull_request:
     branches:
       - main
@@ -16,16 +16,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install edgee
+        uses: edgee-cloud/install-edgee-cli@v0.1.0
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: "20"
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build
+        run: |
+          edgee components build
 
-      - name: Run build
-        run: npm run build
+      - name: Verify .wasm file exists
+        run: |
+          if [ ! -f "./example-js-component.wasm" ]; then
+            echo "❌ Error: example-js-component.wasm not found" >&2
+            exit 1
+          fi
 
       - name: Run tests
         run: npm test
