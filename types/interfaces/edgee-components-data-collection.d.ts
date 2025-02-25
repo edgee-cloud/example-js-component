@@ -1,4 +1,4 @@
-export namespace EdgeeProtocolsDataCollection {
+export namespace EdgeeComponentsDataCollection {
   export function page(e: Event, settings: Dict): EdgeeRequest;
   export function track(e: Event, settings: Dict): EdgeeRequest;
   export function user(e: Event, settings: Dict): EdgeeRequest;
