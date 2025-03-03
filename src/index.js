@@ -1,12 +1,12 @@
 /**
- * @typedef {import("../types/interfaces/edgee-components-data-collection").EdgeeComponentsDataCollection} EdgeeComponentsDataCollection
- * @typedef {import("../types/interfaces/edgee-components-data-collection").EdgeeRequest} EdgeeRequest
- * @typedef {import("../types/interfaces/edgee-components-data-collection").Dict} Dict
- * @typedef {import("../types/interfaces/edgee-components-data-collection").Event} Event
- * @typedef {import("../types/interfaces/edgee-components-data-collection").PageData} PageData
- * @typedef {import("../types/interfaces/edgee-components-data-collection").TrackData} TrackData
- * @typedef {import("../types/interfaces/edgee-components-data-collection").UserData} UserData
- * @typedef {import("../types/interfaces/edgee-components-data-collection").Context} Context
+ * @typedef {import("../types/wit").dataCollection} EdgeeDataCollection
+ * @typedef {import("../types/wit").dataCollection.EdgeeRequest} EdgeeRequest
+ * @typedef {import("../types/wit").dataCollection.Dict} Dict
+ * @typedef {import("../types/wit").dataCollection.Event} Event
+ * @typedef {import("../types/wit").dataCollection.PageData} PageData
+ * @typedef {import("../types/wit").dataCollection.TrackData} TrackData
+ * @typedef {import("../types/wit").dataCollection.UserData} UserData
+ * @typedef {import("../types/wit").dataCollection.Context} Context
  */
 
 const API_ENDPOINT = "https://your-endpoint.com/path";
@@ -97,11 +97,11 @@ const buildUserPayload = (data, context) => {
   };
 };
 
-/** @type {EdgeeComponentsDataCollection} */
+/** @type {EdgeeDataCollection} */
 export const dataCollection = {
 
   /**
-   * @param {Event} e
+   * @param {dataCollection.Event} e
    * @param {Dict} settings
   */
   page(e, settings) {
