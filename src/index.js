@@ -1,13 +1,8 @@
 /**
- * @typedef {import("../types/interfaces/edgee-components-data-collection").EdgeeComponentsDataCollection} EdgeeComponentsDataCollection
- * @typedef {import("../types/interfaces/edgee-components-data-collection").EdgeeRequest} EdgeeRequest
- * @typedef {import("../types/interfaces/edgee-components-data-collection").Dict} Dict
- * @typedef {import("../types/interfaces/edgee-components-data-collection").Event} Event
- * @typedef {import("../types/interfaces/edgee-components-data-collection").PageData} PageData
- * @typedef {import("../types/interfaces/edgee-components-data-collection").TrackData} TrackData
- * @typedef {import("../types/interfaces/edgee-components-data-collection").UserData} UserData
- * @typedef {import("../types/interfaces/edgee-components-data-collection").Context} Context
+ * @typedef {import("../types/wit.d.ts").dataCollection} EdgeeDataCollection
  */
+
+import { dataCollection } from "../types/wit.d.ts";
 
 const API_ENDPOINT = "https://your-endpoint.com/path";
 
@@ -16,7 +11,7 @@ const API_ENDPOINT = "https://your-endpoint.com/path";
  *
  * Needed since Wasm Component doesn't have a native map type.
  *
- * @param {Dict} dict
+ * @param {dataCollection.Dict} dict
  *
  * @returns {Map}
  */
@@ -34,7 +29,7 @@ export const convertDict = (dict) => {
  * @param {any} payload
  * @param {string} payload
  *
- * @returns {EdgeeRequest}
+ * @returns {dataCollection.EdgeeRequest}
  */
 const buildEdgeeRequest = (payload, apiKey) => ({
   method: 'POST',
@@ -48,8 +43,8 @@ const buildEdgeeRequest = (payload, apiKey) => ({
 });
 
 /**
- * @param {PageData} data
- * @param {Context} context
+ * @param {dataCollection.PageData} data
+ * @param {dataCollection.Context} context
  *
  * @returns {any}
  */
@@ -64,8 +59,8 @@ const buildPagePayload = (data, context) => {
 };
 
 /**
- * @param {TrackData} data
- * @param {Context} context
+ * @param {dataCollection.TrackData} data
+ * @param {dataCollection.Context} context
  *
  * @returns {any}
  */
@@ -82,8 +77,8 @@ const buildTrackPayload = (data, context) => {
 };
 
 /**
- * @param {UserData} data
- * @param {Context} context
+ * @param {dataCollection.UserData} data
+ * @param {dataCollection.Context} context
  *
  * @returns {any}
  */
@@ -97,12 +92,12 @@ const buildUserPayload = (data, context) => {
   };
 };
 
-/** @type {EdgeeComponentsDataCollection} */
+/** @type {EdgeeDataCollection} */
 export const dataCollection = {
 
   /**
-   * @param {Event} e
-   * @param {Dict} settings
+   * @param {dataCollection.Event} e
+   * @param {dataCollection.Dict} settings
   */
   page(e, settings) {
     if (e.data.tag != 'page') {
@@ -120,8 +115,8 @@ export const dataCollection = {
   },
 
   /**
-   * @param {Event} e
-   * @param {Dict} settings
+   * @param {dataCollection.Event} e
+   * @param {dataCollection.Dict} settings
   */
   track(e, settings) {
     if (e.data.tag != 'track') {
@@ -139,8 +134,8 @@ export const dataCollection = {
   },
 
   /**
-   * @param {Event} e
-   * @param {Dict} settings
+   * @param {dataCollection.Event} e
+   * @param {dataCollection.Dict} settings
   */
   user(e, settings) {
     if (e.data.tag != 'user') {
