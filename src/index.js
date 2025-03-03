@@ -1,8 +1,13 @@
 /**
- * @typedef {import("../types/wit.d.ts").dataCollection} EdgeeDataCollection
+ * @typedef {import("../types/wit").dataCollection} EdgeeDataCollection
+ * @typedef {import("../types/wit").dataCollection.EdgeeRequest} EdgeeRequest
+ * @typedef {import("../types/wit").dataCollection.Dict} Dict
+ * @typedef {import("../types/wit").dataCollection.Event} Event
+ * @typedef {import("../types/wit").dataCollection.PageData} PageData
+ * @typedef {import("../types/wit").dataCollection.TrackData} TrackData
+ * @typedef {import("../types/wit").dataCollection.UserData} UserData
+ * @typedef {import("../types/wit").dataCollection.Context} Context
  */
-
-import { dataCollection } from "../types/wit.d.ts";
 
 const API_ENDPOINT = "https://your-endpoint.com/path";
 
@@ -11,7 +16,7 @@ const API_ENDPOINT = "https://your-endpoint.com/path";
  *
  * Needed since Wasm Component doesn't have a native map type.
  *
- * @param {dataCollection.Dict} dict
+ * @param {Dict} dict
  *
  * @returns {Map}
  */
@@ -29,7 +34,7 @@ export const convertDict = (dict) => {
  * @param {any} payload
  * @param {string} payload
  *
- * @returns {dataCollection.EdgeeRequest}
+ * @returns {EdgeeRequest}
  */
 const buildEdgeeRequest = (payload, apiKey) => ({
   method: 'POST',
@@ -43,8 +48,8 @@ const buildEdgeeRequest = (payload, apiKey) => ({
 });
 
 /**
- * @param {dataCollection.PageData} data
- * @param {dataCollection.Context} context
+ * @param {PageData} data
+ * @param {Context} context
  *
  * @returns {any}
  */
@@ -59,8 +64,8 @@ const buildPagePayload = (data, context) => {
 };
 
 /**
- * @param {dataCollection.TrackData} data
- * @param {dataCollection.Context} context
+ * @param {TrackData} data
+ * @param {Context} context
  *
  * @returns {any}
  */
@@ -77,8 +82,8 @@ const buildTrackPayload = (data, context) => {
 };
 
 /**
- * @param {dataCollection.UserData} data
- * @param {dataCollection.Context} context
+ * @param {UserData} data
+ * @param {Context} context
  *
  * @returns {any}
  */
@@ -97,7 +102,7 @@ export const dataCollection = {
 
   /**
    * @param {dataCollection.Event} e
-   * @param {dataCollection.Dict} settings
+   * @param {Dict} settings
   */
   page(e, settings) {
     if (e.data.tag != 'page') {
@@ -115,8 +120,8 @@ export const dataCollection = {
   },
 
   /**
-   * @param {dataCollection.Event} e
-   * @param {dataCollection.Dict} settings
+   * @param {Event} e
+   * @param {Dict} settings
   */
   track(e, settings) {
     if (e.data.tag != 'track') {
@@ -134,8 +139,8 @@ export const dataCollection = {
   },
 
   /**
-   * @param {dataCollection.Event} e
-   * @param {dataCollection.Dict} settings
+   * @param {Event} e
+   * @param {Dict} settings
   */
   user(e, settings) {
     if (e.data.tag != 'user') {
