@@ -3,4 +3,5 @@
 /coverage
 
 # Build artifacts
+.edgee/
 *.wasm
