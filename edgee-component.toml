@@ -9,7 +9,7 @@ description = "Example Javascript component for data collection"
 documentation = "https://github.com/edgee-cloud/example-js-component"
 repository = "https://github.com/edgee-cloud/example-js-component"
 language = "JavaScript"
-wit-world-version = "0.5.0"
+wit-version = "0.5.0"
 
 [component.build]
 command = "npm install && npm run generate && npm run build"
