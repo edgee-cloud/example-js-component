@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+env:
+  EDGEE_API_TOKEN: ${{ secrets.EDGEE_API_TOKEN }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +20,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install edgee
-        uses: edgee-cloud/install-edgee-cli@v0.1.0
+        uses: edgee-cloud/install-edgee-cli@v0.2.0
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -26,7 +29,7 @@ jobs:
 
       - name: Build
         run: |
-          edgee components build
+          edgee component build
 
       - name: Verify .wasm file exists
         run: |
