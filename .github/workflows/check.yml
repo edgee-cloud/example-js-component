@@ -1,20 +1,23 @@
-name: Build and Deploy
-
+name: Check
 on:
   push:
     branches:
-      - "*"
-  pull_request:
-    branches:
       - main
+  pull_request:
 
 env:
   EDGEE_API_TOKEN: ${{ secrets.EDGEE_API_TOKEN }}
 
 jobs:
-  build:
+  full-ci:
+    name: Full CI (${{ matrix.dir }})
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        dir: [consent-management, data-collection]
+    defaults:
+      run:
+        working-directory: ${{ matrix.dir }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -30,13 +33,6 @@ jobs:
       - name: Build
         run: |
           edgee component build
-
-      - name: Verify .wasm file exists
-        run: |
-          if [ ! -f "./example-js-component.wasm" ]; then
-            echo "❌ Error: example-js-component.wasm not found" >&2
-            exit 1
-          fi
 
       - name: Run tests
         run: npm test
