@@ -1,0 +1,20 @@
+manifest-version = 1
+
+[component]
+name = "example-js-edge-function-component"
+version = "1.0.0"
+category = "edge-function"
+subcategory = "wasm-function"
+description = "Example Javascript component for edge functions"
+documentation = "https://github.com/edgee-cloud/example-js-component"
+repository = "https://github.com/edgee-cloud/example-js-component"
+language = "JavaScript"
+wit-version = "1.0.0"
+
+[component.build]
+command = "npm install && npm run generate && npm run build"
+output_path = "./example-js-edge-function-component.wasm"
+
+[component.settings.example]
+title = "Example Config Field"
+type = "string"

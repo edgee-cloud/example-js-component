@@ -1,0 +1,16 @@
+{
+  "name": "example-js-edge-function-component",
+  "type": "module",
+  "main": "src/index.js",
+  "types": "./types/wit.d.ts",
+  "scripts": {
+    "generate": "npx @bytecodealliance/jco types .edgee/wit -o types/",
+    "build": "npx @bytecodealliance/jco componentize src/index.js --wit .edgee/wit -o example-js-edge-function-component.wasm -n edge-function",
+    "test": "mocha",
+    "coverage": "c8 --src js --all -r text -r text-summary npm test"
+  },
+  "devDependencies": {
+    "c8": "^10.1.3",
+    "mocha": "^11.1.0"
+  }
+}

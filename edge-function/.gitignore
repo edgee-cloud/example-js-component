@@ -1,0 +1,7 @@
+# Node stuff
+/node_modules
+/coverage
+
+# Build artifacts
+.edgee/
+*.wasm
