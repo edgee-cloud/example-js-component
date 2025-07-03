@@ -4,4 +4,6 @@
 
 # Build artifacts
 .edgee/
+/dist
+/types
 *.wasm

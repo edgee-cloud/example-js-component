@@ -1,11 +1,12 @@
 {
   "name": "example-js-edge-function-component",
   "type": "module",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "types": "./types/wit.d.ts",
   "scripts": {
     "generate": "npx @bytecodealliance/jco types .edgee/wit -o types/",
-    "build": "npx @bytecodealliance/jco componentize src/index.js --wit .edgee/wit -o example-js-edge-function-component.wasm -n edge-function",
+    "bundle": "npx esbuild src/index.js --bundle --format=esm --platform=neutral --external:wasi:* --outfile=dist/index.js --target=es2020",
+    "build": "npm run bundle && npx @bytecodealliance/jco componentize dist/index.js --wit .edgee/wit -o example-js-edge-function-component.wasm -n edge-function",
     "test": "mocha",
     "coverage": "c8 --src js --all -r text -r text-summary npm test"
   },
