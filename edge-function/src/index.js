@@ -1,5 +1,53 @@
 import { buildResponseHtml, parseBody, parseHeaders } from "./helpers";
 
+function handle(req, resp) {
+  try {
+    const settings = Settings.fromHeaders(req.headers());
+    const body = parseBody(req);
+
+    const dynamicIndex = index.replace(
+      "<p>We're working hard to launch something awesome. Stay tuned!</p>",
+      `<p>We're working hard to launch something awesome. Stay tuned!</p>
+      <p><strong>Example setting:</strong> ${settings.example}</p>`
+    );
+
+    const response = buildResponseHtml(dynamicIndex, 200);
+
+    response.send(resp);
+  } catch (e) {
+    const response = buildResponseHtml(index, 200);
+    response.send(resp);
+  }
+}
+
+export const incomingHandler = {
+  handle,
+};
+
+export class Settings {
+  example = "default";
+  constructor(example) {
+    this.example = example;
+  }
+
+  static fromHeaders(headers) {
+    const settings = Settings.new(parseHeaders(headers));
+    return settings;
+  }
+
+  static new(headers) {
+    const settings = headers["x-edgee-component-settings"];
+    if (settings.length !== 1) {
+      throw new Error(
+        "Expected exactly one 'x-edgee-component-settings' header"
+      );
+    }
+    const setting = settings[0];
+    const parsedSetting = JSON.parse(setting);
+    return new Settings(parsedSetting["example"] ?? "");
+  }
+}
+
 const index = `
 <!DOCTYPE html>
 <html lang="en">
@@ -54,51 +102,3 @@ const index = `
 </body>
 </html>
 `;
-
-function handle(req, resp) {
-  try {
-    const settings = Settings.fromHeaders(req.headers());
-    const body = parseBody(req);
-
-    const dynamicIndex = index.replace(
-      "<p>We're working hard to launch something awesome. Stay tuned!</p>",
-      `<p>We're working hard to launch something awesome. Stay tuned!</p>
-      <p><strong>Example setting:</strong> ${settings.example}</p>`
-    );
-
-    const response = buildResponseHtml(dynamicIndex, 200);
-
-    response.send(resp);
-  } catch (e) {
-    const response = buildResponseHtml(index, 200);
-    response.send(resp);
-  }
-}
-
-export const incomingHandler = {
-  handle,
-};
-
-export class Settings {
-  example = "default";
-  constructor(example) {
-    this.example = example;
-  }
-
-  static fromHeaders(headers) {
-    const settings = Settings.new(parseHeaders(headers));
-    return settings;
-  }
-
-  static new(headers) {
-    const settings = headers["x-edgee-component-settings"];
-    if (settings.length !== 1) {
-      throw new Error(
-        "Expected exactly one 'x-edgee-component-settings' header"
-      );
-    }
-    const setting = settings[0];
-    const parsedSetting = JSON.parse(setting);
-    return new Settings(parsedSetting["example"] ?? "");
-  }
-}
