@@ -5,7 +5,7 @@
   "types": "./types/wit.d.ts",
   "scripts": {
     "generate": "npx @bytecodealliance/jco types .edgee/wit -o types/",
-    "build": "npx @bytecodealliance/jco componentize src/index.js --wit .edgee/wit -o example-js-component.wasm -n data-collection -d http",
+    "build": "npx @bytecodealliance/jco@1.11.3 componentize src/index.js --wit .edgee/wit -o example-js-component.wasm -n data-collection -d http",
     "test": "mocha",
     "coverage": "c8 --src js --all -r text -r text-summary npm test"
   },
