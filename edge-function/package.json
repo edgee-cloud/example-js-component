@@ -6,7 +6,7 @@
   "scripts": {
     "generate": "npx @bytecodealliance/jco@1.13.0 types .edgee/wit -o types/",
     "bundle": "npx esbuild src/index.js --bundle --format=esm --platform=neutral --external:wasi:* --outfile=dist/index.js --target=es2020",
-    "build": "npm run bundle && npx @bytecodealliance/jco@1.13.0 componentize src/index.js --wit .edgee/wit -o example-js-component.wasm",
+    "build": "npm run bundle && npx @bytecodealliance/jco@1.13.0 componentize dist/index.js --wit .edgee/wit -o example-js-component.wasm",
     "build-componentize": "npm run bundle && npx @bytecodealliance/componentize-js@0.18.4 dist/index.js --wit .edgee/wit -o example-js-edge-function-component.wasm",
     "test": "mocha",
     "coverage": "c8 --src js --all -r text -r text-summary npm test"
