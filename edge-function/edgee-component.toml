@@ -5,7 +5,36 @@ name = "example-js-edge-function-component"
 version = "1.0.0"
 category = "edge-function"
 subcategory = "wasm-function"
-description = "Example Javascript component for edge functions"
+description = '''
+## Overview
+
+Describe **what this component does** and why it exists.
+
+---
+
+## ✨ Key Features & Benefits
+
+### Features
+
+- **Feature 1**: Quick feature description.
+- **Feature 2**: Quick feature description.
+
+### Benefits
+
+- **Benefit 1**: Quick benefit description.
+- **Benefit 2**: Quick benefit description.
+
+---
+
+## 🚀️ Use Cases
+
+- **Use Case 1**: Quick use case description.
+- **Use Case 2**: Quick use case description.
+
+---
+
+Additional resources: [Resource example](https://your-resource-link.com)
+'''
 documentation = "https://github.com/edgee-cloud/example-js-component"
 repository = "https://github.com/edgee-cloud/example-js-component"
 language = "JavaScript"
